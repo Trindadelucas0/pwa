@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!-- Página única de teste PWA - 3 telas: Testes principais, Câmera & Mic, Status. Ícone do app: fi fi-bs-dog-leashed. -->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0ea5e9">
+  <meta name="description" content="Página de teste PWA - notificações, câmera e outros recursos para iPhone e Android">
+  <title>PWA Teste</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Ícone do app: fi fi-bs-dog-leashed (Flaticon Uicons). Use este ícone como referência para os ícones do manifest (icon-192.png / icon-512.png). -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.3.1/css/all/all.css">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen">
+  <!-- Header: ícone do app é o dog-leashed -->
+  <header class="bg-slate-800 border-b border-slate-700 sticky top-0 z-20">
+    <div class="max-w-lg mx-auto px-4 py-3 flex items-center gap-3">
+      <!-- Ícone do aplicativo (dog leashed) - mesmo ícone usado no manifest para o app -->
+      <i class="fi fi-bs-dog-leashed text-3xl text-amber-400" aria-hidden="true"></i>
+      <h1 class="text-lg font-bold text-white">PWA Teste</h1>
+    </div>
+    <!-- Navegação entre as 3 telas -->
+    <nav class="flex border-t border-slate-700">
+      <button type="button" data-tela="1" class="tela-btn flex-1 py-2 text-sm font-medium text-cyan-400 border-b-2 border-cyan-400">Testes</button>
+      <button type="button" data-tela="2" class="tela-btn flex-1 py-2 text-sm font-medium text-slate-400 border-b-2 border-transparent">Câmera & Mic</button>
+      <button type="button" data-tela="3" class="tela-btn flex-1 py-2 text-sm font-medium text-slate-400 border-b-2 border-transparent">Status</button>
+    </nav>
+  </header>
+
+  <main class="max-w-lg mx-auto px-4 pb-24">
+    <!-- ========== TELA 1: Testes principais (Notificações, Vibração, etc.) ========== -->
+    <section id="tela-1" class="tela py-6">
+      <h2 class="text-xl font-semibold text-slate-200 mb-4">Testes principais</h2>
+      <div class="space-y-3">
+        <button type="button" id="btn-notificacao" class="w-full py-3 px-4 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-medium transition">
+          Testar notificações
+        </button>
+        <button type="button" id="btn-vibracao" class="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-medium transition">
+          Testar vibração
+        </button>
+        <button type="button" id="btn-geolocalizacao" class="w-full py-3 px-4 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-medium transition">
+          Testar geolocalização
+        </button>
+        <button type="button" id="btn-bateria" class="w-full py-3 px-4 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-medium transition">
+          Status da bateria
+        </button>
+      </div>
+      <p id="msg-tela1" class="mt-4 text-sm text-slate-400 min-h-[2rem]"></p>
+    </section>
+
+    <!-- ========== TELA 2: Câmera e microfone ========== -->
+    <section id="tela-2" class="tela hidden py-6">
+      <h2 class="text-xl font-semibold text-slate-200 mb-4">Câmera e microfone</h2>
+      <div class="space-y-3">
+        <button type="button" id="btn-camera" class="w-full py-3 px-4 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-medium transition">
+          Ligar câmera
+        </button>
+        <button type="button" id="btn-microfone" class="w-full py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium transition">
+          Testar microfone
+        </button>
+      </div>
+      <div id="area-camera" class="mt-4 rounded-xl overflow-hidden bg-slate-800 hidden">
+        <video id="video-camera" autoplay playsinline muted class="w-full aspect-video object-cover"></video>
+      </div>
+      <p id="msg-tela2" class="mt-4 text-sm text-slate-400 min-h-[2rem]"></p>
+    </section>
+
+    <!-- ========== TELA 3: Status do PWA ========== -->
+    <section id="tela-3" class="tela hidden py-6">
+      <h2 class="text-xl font-semibold text-slate-200 mb-4">Status do PWA</h2>
+      <div class="rounded-xl bg-slate-800 p-4 space-y-2 text-sm">
+        <p><span class="text-slate-400">Online:</span> <span id="status-online">-</span></p>
+        <p><span class="text-slate-400">Service Worker:</span> <span id="status-sw">-</span></p>
+        <p><span class="text-slate-400">Notificações:</span> <span id="status-notif">-</span></p>
+        <p><span class="text-slate-400">HTTPS:</span> <span id="status-https">-</span></p>
+      </div>
+      <button type="button" id="btn-atualizar-status" class="mt-4 w-full py-3 px-4 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-medium transition">
+        Atualizar status
+      </button>
+    </section>
+  </main>
+
+  <script>
+    // Registro do Service Worker para o PWA
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
+  </script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
