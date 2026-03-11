@@ -16,12 +16,12 @@ npm install
 npm start
 ```
 
-Abre no navegador: **http://localhost:3000**
+Abre no navegador: **http://localhost:3001**
 
 ## Testar no celular (iPhone e Android)
 
 1. **Servidor acessível na rede**  
-   Use o IP da sua máquina na mesma rede (ex.: `http://192.168.1.10:3000`) ou um túnel (ngrok, localtunnel, etc.).
+   Use o IP da sua máquina na mesma rede (ex.: `http://192.168.1.10:3001`) ou um túnel (ngrok, localtunnel, etc.).
 
 2. **HTTPS**  
    No celular, notificações e alguns recursos costumam exigir HTTPS. Em desenvolvimento use:

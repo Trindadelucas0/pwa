@@ -7,7 +7,7 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
-const PORT = 3222;
+const PORT = process.env.PORT || 3001;
 
 // Engine EJS (máximo 3 telas na única view)
 app.set('view engine', 'ejs');
