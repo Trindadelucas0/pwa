@@ -68,7 +68,7 @@
       <p id="msg-tela2" class="mt-4 text-sm text-slate-400 min-h-[2rem]"></p>
     </section>
 
-    <!-- ========== TELA 3: Status do PWA ========== -->
+    <!-- ========== TELA 3: Status do PWA + instalação ========== -->
     <section id="tela-3" class="tela hidden py-6">
       <h2 class="text-xl font-semibold text-slate-200 mb-4">Status do PWA</h2>
       <div class="rounded-xl bg-slate-800 p-4 space-y-2 text-sm">
@@ -80,8 +80,35 @@
       <button type="button" id="btn-atualizar-status" class="mt-4 w-full py-3 px-4 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-medium transition">
         Atualizar status
       </button>
+      <!-- Botão para instalar o PWA.
+           - Android/Chrome/desktop: usa o evento beforeinstallprompt.
+           - iOS: mostra passo a passo para usar "Adicionar à Tela de Início". -->
+      <button type="button" id="btn-instalar" class="mt-3 w-full py-3 px-4 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-medium transition hidden">
+        Instalar como app
+      </button>
+      <p class="mt-2 text-xs text-slate-400">
+        Em iOS, se o botão não aparecer, use o botão Compartilhar &rarr; "Adicionar à Tela de Início".
+      </p>
     </section>
   </main>
+
+  <!-- Modal simples com instruções para instalar no iOS -->
+  <div id="ios-modal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-30">
+    <div class="max-w-sm mx-auto bg-slate-900 rounded-2xl p-5 shadow-xl border border-slate-700">
+      <h3 class="text-lg font-semibold text-white mb-2">Instalar no iPhone</h3>
+      <p class="text-sm text-slate-300 mb-3">
+        No Safari:
+      </p>
+      <ol class="list-decimal list-inside text-sm text-slate-300 space-y-1 mb-4">
+        <li>Toque no botão <span class="font-semibold">Compartilhar</span> (ícone de seta pra cima).</li>
+        <li>Desça a lista e toque em <span class="font-semibold">"Adicionar à Tela de Início"</span>.</li>
+        <li>Confirme o nome e toque em <span class="font-semibold">Adicionar</span>.</li>
+      </ol>
+      <button type="button" id="ios-modal-close" class="mt-1 w-full py-2.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-white text-sm font-medium">
+        Entendi
+      </button>
+    </div>
+  </div>
 
   <script>
     // Registro do Service Worker para o PWA

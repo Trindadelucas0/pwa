@@ -149,4 +149,60 @@
 
   document.getElementById('btn-atualizar-status').addEventListener('click', atualizarStatus);
   atualizarStatus();
+
+  // ----- Instalação do PWA (Android/desktop + instruções iOS) -----
+  let deferredPrompt = null;
+  const btnInstalar = document.getElementById('btn-instalar');
+  const iosModal = document.getElementById('ios-modal');
+  const iosModalClose = document.getElementById('ios-modal-close');
+
+  function isIOS() {
+    const ua = window.navigator.userAgent.toLowerCase();
+    return /iphone|ipad|ipod/.test(ua);
+  }
+
+  // Android / Chrome / desktop: captura o evento beforeinstallprompt
+  window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    deferredPrompt = event;
+    if (btnInstalar) {
+      btnInstalar.classList.remove('hidden');
+    }
+  });
+
+  if (btnInstalar) {
+    btnInstalar.addEventListener('click', async () => {
+      // Se o navegador suportar beforeinstallprompt (Android/desktop)
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        await deferredPrompt.userChoice;
+        deferredPrompt = null;
+        return;
+      }
+
+      // iOS: mostra modal com instruções de "Adicionar à Tela de Início"
+      if (isIOS()) {
+        if (iosModal) {
+          iosModal.classList.remove('hidden');
+        } else {
+          alert('No iPhone, use o botão Compartilhar do Safari e escolha "Adicionar à Tela de Início".');
+        }
+        return;
+      }
+
+      // Outros navegadores sem suporte
+      alert('Seu navegador não oferece instalação automática de PWA. Use a opção "Adicionar à tela inicial" do próprio navegador.');
+    });
+  }
+
+  if (iosModal && iosModalClose) {
+    iosModalClose.addEventListener('click', () => {
+      iosModal.classList.add('hidden');
+    });
+    iosModal.addEventListener('click', (event) => {
+      if (event.target === iosModal) {
+        iosModal.classList.add('hidden');
+      }
+    });
+  }
 })();
