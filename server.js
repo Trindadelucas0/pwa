@@ -21,6 +21,18 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.listen(PORT, () => {
-  console.log(`PWA Teste rodando em http://localhost:${PORT}`);
-});
+// Tenta subir na porta definida; se estiver em uso (EADDRINUSE), tenta a próxima
+function start(port) {
+  const server = app.listen(port, () => {
+    console.log(`PWA Teste rodando em http://localhost:${port}`);
+  });
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.warn(`Porta ${port} em uso, tentando ${port + 1}...`);
+      start(port + 1);
+    } else {
+      throw err;
+    }
+  });
+}
+start(PORT);
