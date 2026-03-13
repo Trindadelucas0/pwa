@@ -9,6 +9,12 @@
   <title>PWA Teste</title>
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Leaflet (mapa) CSS + JS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <!-- Ícone do app: fi fi-bs-dog-leashed (Flaticon Uicons). Use este ícone como referência para os ícones do manifest (icon-192.png / icon-512.png). -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.3.1/css/all/all.css">
   <link rel="manifest" href="/manifest.json">
@@ -49,6 +55,22 @@
         </button>
       </div>
       <p id="msg-tela1" class="mt-4 text-sm text-slate-400 min-h-[2rem]"></p>
+      <!-- Área do mapa de geolocalização: mostra onde você está e onde está o cachorro -->
+      <div id="map-geoloc-wrapper" class="mt-4 space-y-2 hidden">
+        <p class="text-xs text-slate-400">
+          Mapa: ponto azul = você, ponto laranja = cachorro (arraste para onde ele está). Círculos mostram distâncias (100 m, 500 m, 1 km).
+        </p>
+        <div id="map-geoloc" class="w-full h-64 rounded-xl overflow-hidden border border-slate-700"></div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <button type="button" id="btn-rota-dog" class="w-full py-2.5 px-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-sm font-medium transition">
+            Traçar rota até o cachorro
+          </button>
+          <button type="button" id="btn-lugares-perto" class="w-full py-2.5 px-3 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-sm font-medium transition">
+            Buscar lugares por perto
+          </button>
+        </div>
+        <p id="map-info" class="text-xs text-slate-400 min-h-[1.5rem]"></p>
+      </div>
     </section>
 
     <!-- ========== TELA 2: Câmera e microfone ========== -->
